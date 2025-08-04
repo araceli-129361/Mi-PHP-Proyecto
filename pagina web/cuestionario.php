@@ -1,49 +1,95 @@
+<?php session_start(); ?>
+
+<?php
+// Verificamos si se enviaron respuestas
+$respuestaEnviada = false;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $calidad = $_POST['calidad'];
+    $recomendar = $_POST['recomendar'];
+    $comentarios = trim($_POST['comentarios']);
+    $respuestaEnviada = true;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Cuestionario / Opinión</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Ángel | Cuestionario</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Cuestionario de Opinión</h1>
+    <!-- ====== MENÚ ====== -->
+    <header class="header">
+        <div class="menu container">
+            <h1 class="logo">EL ÁNGEL</h1>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="catalogo.php">Productos</a></li>
+                    <li><a href="nosotros.php">Nosotros</a></li>
+                    <li><a href="contacto.php">Contacto</a></li>
+                    <li><a href="cuestionario.php">Cuestionario</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<form method="POST" action="">
-    <label>Nombre:</label><br>
-    <input type="text" name="nombre" required><br><br>
+    <!-- ====== SECCIÓN CUESTIONARIO ====== -->
+    <main class="container presentacion">
+        <h2>Cuestionario</h2>
+        <p>Por favor, ayúdanos a mejorar respondiendo las siguientes preguntas:</p>
 
-    <label>Correo Electrónico:</label><br>
-    <input type="email" name="correo" required><br><br>
+        <form action="" method="post" style="max-width:600px; margin:20px auto; text-align:left;">
+            <label>1. ¿Cómo calificarías la calidad de nuestros productos?</label><br>
+            <select name="calidad" required>
+                <option value="">Selecciona una opción</option>
+                <option value="Excelente">Excelente</option>
+                <option value="Buena">Buena</option>
+                <option value="Regular">Regular</option>
+                <option value="Mala">Mala</option>
+            </select><br><br>
 
-    <label>¿Qué te pareció nuestra tienda?</label><br>
-    <select name="satisfaccion" required>
-        <option value="">Selecciona una opción</option>
-        <option value="Excelente">Excelente</option>
-        <option value="Buena">Buena</option>
-        <option value="Regular">Regular</option>
-        <option value="Mala">Mala</option>
-    </select><br><br>
+            <label>2. ¿Recomendarías nuestra tienda a otras personas?</label><br>
+            <input type="radio" name="recomendar" value="Sí" required> Sí<br>
+            <input type="radio" name="recomendar" value="No" required> No<br><br>
 
-    <label>Comentarios adicionales:</label><br>
-    <textarea name="comentarios" rows="4"></textarea><br><br>
+            <label>3. Comentarios o sugerencias:</label><br>
+            <textarea name="comentarios" rows="4" style="width:100%;" placeholder="Escribe aquí..."></textarea><br><br>
 
-    <input type="submit" name="enviar" value="Enviar Opinión">
-</form>
+            <button class="btn-3" type="submit">Enviar Respuestas</button>
+        </form>
 
-<?php
-if (isset($_POST['enviar'])) {
-    $nombre = htmlspecialchars($_POST['nombre']);
-    $correo = htmlspecialchars($_POST['correo']);
-    $satisfaccion = htmlspecialchars($_POST['satisfaccion']);
-    $comentarios = htmlspecialchars($_POST['comentarios']);
+        <!-- ====== MOSTRAR RESPUESTAS ====== -->
+        <?php if ($respuestaEnviada): ?>
+            <div style="margin-top:30px; background:#e4d6c3; padding:15px; border-radius:8px;">
+                <h3>✅ Respuestas enviadas:</h3>
+                <p><strong>Calidad:</strong> <?php echo htmlspecialchars($calidad); ?></p>
+                <p><strong>¿Recomendaría la tienda?:</strong> <?php echo htmlspecialchars($recomendar); ?></p>
+                <p><strong>Comentarios:</strong> <?php echo nl2br(htmlspecialchars($comentarios)); ?></p>
+            </div>
+        <?php endif; ?>
+    </main>
 
-    echo "<h2>¡Gracias por tu opinión, $nombre!</h2>";
-    echo "<p><strong>Correo:</strong> $correo</p>";
-    echo "<p><strong>Tu opinión:</strong> $satisfaccion</p>";
-    echo "<p><strong>Comentarios:</strong> $comentarios</p>";
-}
-?>
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer">
+        <div class="link">
+            <h3>El Ángel</h3>
+            <ul>
+                <li><a href="nosotros.php">Sobre Nosotros</a></li>
+                <li><a href="contacto.php">Contáctanos</a></li>
+            </ul>
+        </div>
+        <div class="link">
+            <h3>Síguenos</h3>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </div>
+    </footer>
 
 </body>
 </html>
