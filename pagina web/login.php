@@ -1,19 +1,34 @@
 <?php
+include("db.php");
 session_start();
-include 'db.php';
+$mensaje = '';
 
-if (isset($_POST['ingresar'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
 
-    $query = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND contrasena = '$contrasena'";
-    $resultado = mysqli_query($conexion, $query);
+    $query = "SELECT * FROM usuarios WHERE usuario='$usuario'";
+    $result = mysqli_query($conexion, $query);
 
-    if (mysqli_num_rows($resultado) == 1) {
-        $_SESSION['usuario'] = $usuario;
-        header('Location: admin/lista.php');
+    if ($result && mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($contrasena, $row['contrasena'])) {
+            $_SESSION['usuario_id'] = $row['id'];
+            $_SESSION['usuario'] = $row['usuario'];
+            $_SESSION['rol'] = $row['rol'];
+
+            // Redirigir según el rol
+            if ($row['rol'] === 'admin') {
+                header("Location: lista.php");
+            } else {
+                header("Location: catalogo.php");
+            }
+            exit();
+        } else {
+            $mensaje = "❌ Contraseña incorrecta.";
+        }
     } else {
-        $error = "Usuario o contraseña incorrectos.";
+        $mensaje = "❌ Usuario no encontrado.";
     }
 }
 ?>
@@ -23,23 +38,22 @@ if (isset($_POST['ingresar'])) {
 <head>
     <meta charset="UTF-8">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<h1>Iniciar Sesión</h1>
-
-<form method="POST" action="">
-    <label>Usuario:</label><br>
-    <input type="text" name="usuario" required><br><br>
-
-    <label>Contraseña:</label><br>
-    <input type="password" name="contrasena" required><br><br>
-
-    <input type="submit" name="ingresar" value="Entrar">
-</form>
-
-<?php if (isset($error)) { echo "<p>$error</p>"; } ?>
-
+<main class="container presentacion">
+    <h2>Iniciar Sesión</h2>
+    <?php if ($mensaje): ?>
+        <p style="color:red;"><?php echo $mensaje; ?></p>
+    <?php endif; ?>
+    <form method="POST" style="max-width:400px; margin:auto;">
+        <input type="text" name="usuario" placeholder="Usuario" required><br><br>
+        <input type="password" name="contrasena" placeholder="Contraseña" required><br><br>
+        <button class="btn-3" type="submit">Entrar</button>
+    </form>
+    <p style="text-align:center; margin-top:15px;">
+        ¿No tienes cuenta? <a href="registro.php">Regístrate aquí</a>
+    </p>
+</main>
 </body>
 </html>
