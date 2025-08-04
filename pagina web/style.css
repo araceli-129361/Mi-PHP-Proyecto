@@ -1,4 +1,3 @@
-
 :root {
     --color-fondo: #f5f1e6;
     --color-beige: #e4d6c3;
@@ -26,6 +25,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .logo {
@@ -33,136 +35,3 @@ body {
     font-weight: bold;
     color: var(--color-cafe-oscuro);
 }
-
-.navbar ul {
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar ul li a {
-    color: var(--color-cafe-oscuro);
-    text-decoration: none;
-    font-size: 16px;
-    padding: 10px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    border-radius: 8px;
-}
-
-.navbar ul li a:hover {
-    background-color: var(--color-cafe-claro);
-    color: var(--color-blanco);
-}
-
-/* ====== CATÁLOGO DE PRODUCTOS (Tarjetas Elegantes) ====== */
-.oferts-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-}
-
-.ofert-1 {
-    background-color: var(--color-beige);
-    border: 2px solid var(--color-cafe-claro);
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ofert-1:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-}
-
-.ofert-1 img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.product-txt h3 {
-    font-size: 22px;
-    color: var(--color-cafe-oscuro);
-    margin-bottom: 10px;
-}
-
-.product-txt p {
-    font-size: 16px;
-    color: var(--color-texto);
-}
-
-.precio {
-    font-weight: bold;
-    font-size: 20px;
-    color: var(--color-cafe-oscuro);
-    margin: 10px 0;
-}
-
-.btn-3 {
-    background-color: var(--color-cafe-oscuro);
-    color: var(--color-blanco);
-    padding: 10px 15px;
-    border-radius: 8px;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-
-.btn-3:hover {
-    background-color: #563c29;
-}
-
-/* ====== FOOTER ====== */
-.footer {
-    background-color: var(--color-cafe-claro);
-    padding: 30px 20px;
-    color: var(--color-blanco);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.footer .link h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-.footer .link ul {
-    padding: 0;
-    margin: 0;
-}
-
-.footer .link ul li a {
-    color: var(--color-blanco);
-    font-size: 14px;
-    text-decoration: none;
-    display: block;
-    margin: 5px 0;
-    transition: color 0.3s ease;
-}
-
-.footer .link ul li a:hover {
-    color: #f5f1e6;
-}
-
-.btn-4 {
-    background-color: var(--color-cafe-claro);
-    color: var(--color-blanco);
-    padding: 10px 15px;
-    border-radius: 8px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-4:hover {
-    background-color: var(--color-cafe-oscuro);
-}
-
-
