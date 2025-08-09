@@ -1,29 +1,34 @@
 <?php
+include("../db.php");
 session_start();
-if (!isset($_SESSION['usuario'])) {
-    header('Location: ../login.php');
+
+// Validar que haya sesión activa y que sea admin
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
+    header("Location: ../login.php");
     exit();
 }
-?>
 
-<?php
-include '../db.php';
+$id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $query = "DELETE FROM productos WHERE id_producto = $id";
-    $resultado = mysqli_query($conexion, $query);
-
-    if ($resultado) {
-        echo "<p>Producto eliminado correctamente.</p>";
+// Validar ID y ejecutar eliminación
+if ($id) {
+    $query = "DELETE FROM productos WHERE id_productos = $id";
+    if (mysqli_query($conexion, $query)) {
+        echo "<script>
+            alert('Producto eliminado correctamente');
+            window.location.href='lista.php';
+        </script>";
     } else {
-        echo "<p>Error al eliminar el producto: " . mysqli_error($conexion) . "</p>";
+        $error = mysqli_error($conexion);
+        echo "<script>
+            alert('Error al eliminar: $error');
+            window.location.href='lista.php';
+        </script>";
     }
 } else {
-    echo "<p>ID no especificado.</p>";
-    exit();
+    echo "<script>
+        alert('ID no válido');
+        window.location.href='lista.php';
+    </script>";
 }
 ?>
-
-<a href="lista.php">Volver a la lista de productos</a>
