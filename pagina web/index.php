@@ -72,8 +72,8 @@ session_start();
         <div class="link">
             <h3>Síguenos</h3>
             <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
+                <li><a href="https://www.facebook.com/brinquitosmonterrey?mibextid=LQQJ4d">Facebook</a></li>
+                <li><a href="https://www.instagram.com/brinquitosmonterrey/?igsh=MXU2aThsM3ZrOGNsdA%3D%3D#">Instagram</a></li>
             </ul>
         </div>
     </footer>
